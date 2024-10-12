@@ -8,6 +8,20 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 lib_root = sys.argv[1]
+if lib_root == "[gui]":
+    import tkinter as tk
+    from tkinter import filedialog
+
+    root = tk.Tk()
+    root.withdraw()
+
+    print("[.] please select the directory of the target library to continue")
+    print("[.] the directory should have at least one .nicnt file in it")
+
+    lib_root = filedialog.askdirectory(mustexist = True, title = "Select the directory of the target library")
+    if lib_root == "":
+        print(f"[-] cancelled")
+        sys.exit()
 
 try:
     lib_nicnt = glob.glob(f"{lib_root}/*.nicnt")[0]
