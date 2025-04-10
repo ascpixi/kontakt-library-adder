@@ -53,7 +53,7 @@ print(f"[.]    Version: {version}")
 print()
 
 key = winreg.CreateKey(winreg.HKEY_LOCAL_MACHINE, fr"SOFTWARE\Native Instruments\{regkey}")
-winreg.SetValueEx(key, "ContentDir", 0, winreg.REG_SZ, lib_root)
+winreg.SetValueEx(key, "ContentDir", 0, winreg.REG_SZ, lib_root.replace("/", "\\"))
 winreg.SetValueEx(key, "ContentVersion", 0, winreg.REG_SZ, version)
 winreg.SetValueEx(key, "HU", 0, winreg.REG_SZ, product["ProductSpecific"]["HU"])
 winreg.SetValueEx(key, "JDX", 0, winreg.REG_SZ, product["ProductSpecific"]["JDX"])
