@@ -14,7 +14,7 @@ if not %errorlevel% == 0 (
 	exit
 )
 
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 cls
 python add-library.py [gui]
 pause
