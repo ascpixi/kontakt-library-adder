@@ -5,13 +5,18 @@
 setlocal enableextensions
 cd /d "%~dp0"
 
-:: check for admin permissions (so that we can modify HKEY_LOCAL_MACHINE)
+set "SCRIPT_PATH=%~f0"
 net session >nul 2>&1
 if not %errorlevel% == 0 (
-	echo [-] this script requires administrator permissions.
-	echo [-] run it again as administrator to properly launch it.
-	pause
-	exit
+	echo [.] administrator permissions are required, elevating...
+	powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath $env:SCRIPT_PATH -Verb RunAs" 2>nul
+	
+	if errorlevel 1 (
+		echo [-] could not obtain administrator permissions.
+		pause
+	)
+
+	exit /b
 )
 
 pip install -r requirements.txt
